@@ -12,17 +12,20 @@ public class ClusterMap {
     List<SystemMachine> osdList;
     List<PlacementGroup> placeGroupList;
 
-    private ClusterMap(){
+    public ClusterMap(){
         this.cluster_active_machines = 0;
         this.mapVersion = 0.01;
+        this.monitorList = null;
+        this.osdList = null;
+        this.placeGroupList = null;
     }
 
-    public static ClusterMap getSingle_instance() {
+    /*public static ClusterMap getSingle_instance() {
         if (single_instance == null) {
             single_instance = new ClusterMap();
         }
         return single_instance;
-    }
+    }*/
 
     public int getCluster_active_machines() {
         return cluster_active_machines;
@@ -61,11 +64,13 @@ public class ClusterMap {
         if ("OSD".equals(machine.getType())) {
             if (machine.isUp() && machine.isUpdated()) {
                 this.osdList.add(machine);
+                this.cluster_active_machines++;
             }
         }
         if ("MDS".equals(machine.getType())){
             if (machine.isUp() && machine.isUpdated()) {
                 this.monitorList.add(machine);
+                this.cluster_active_machines++;
             }
         }else{
             out.println("Invalid machine type: "+machine.getType());

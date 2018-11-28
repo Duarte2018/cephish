@@ -5,16 +5,34 @@ package SD2018.cephish;
 //definicao de RPC messages e servicos
 //under construction
 //cada servico tem duas mensagens: pedido e resposta
-
-message HelloRequest {
-    string firstName = 1;
-    string lastName = 2;
+message SystemMachine {
+    string machineName = 1;
+    string machineIp = 2;
+    string type = 3;
 }
 
-message HelloResponse {
-    string greeting = 1;
+message OsdList {
+    repeated SystemMachine osdHost = 1;
 }
 
-service HelloService {
-    rpc hello(HelloRequest) returns (HelloResponse);
+message MdsList{
+    repeated SystemMachine msdHost = 1;
+}
+
+message MapVersionRequest {
+    double clusterMapVersion = 1;
+    string hostIp = 2;
+    int32 port = 3;
+    string type = 4;
+}
+
+message MapVersionResponse {
+    double clusterMapVersion = 1;
+    OsdList osdList = 2;
+    MdsList mdsList = 3;
+}
+
+//service rpc to verify if the requester has the highest version of the clusterMap
+service MapVersion {
+    rpc IsUpdated(MapVersionRequest) returns (MapVersionResponse);
 }

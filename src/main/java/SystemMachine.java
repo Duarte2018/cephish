@@ -2,13 +2,13 @@ import java.net.InetAddress;
 
 public class SystemMachine {
     private String machineName;
-    private InetAddress machineIp;
+    private String machineIp;
     private String type;
     private boolean up;
     private boolean updated;
     private double mapVersion;
 
-    public SystemMachine(String machineName, InetAddress machineIp, String type, boolean up, boolean updated) {
+    public SystemMachine(String machineName, String machineIp, String type, boolean up, boolean updated) {
         this.machineName = machineName;
         this.machineIp = machineIp;
         this.type = type;
@@ -21,7 +21,7 @@ public class SystemMachine {
         return machineName;
     }
 
-    public InetAddress getMachineIp() {
+    public String getMachineIp() {
         return machineIp;
     }
 
